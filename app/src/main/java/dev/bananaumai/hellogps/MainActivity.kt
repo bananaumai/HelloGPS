@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
 
 class MainActivity : AppCompatActivity() {
 
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     private fun createLocationCallback() = object: LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult ?: return
-            for (location in locationResult.locations){
+            for (location in locationResult.locations) {
                 Log.d("bananaumai", "$location")
             }
         }
@@ -84,8 +83,8 @@ class MainActivity : AppCompatActivity() {
     private fun createLocationRequest(): LocationRequest {
         val locationRequest = LocationRequest.create() ?: throw RuntimeException("couldn't create locatilon request")
 
-        locationRequest.interval = 10000
-        locationRequest.fastestInterval = 5000
+        locationRequest.interval = 5000
+        locationRequest.fastestInterval = 1000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         return locationRequest
