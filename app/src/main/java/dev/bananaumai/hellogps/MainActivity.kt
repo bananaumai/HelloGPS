@@ -72,19 +72,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun createLocationCallback() = object: LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
+            fun Location.fmt() = "lat: $latitude, lon: $longitude, speed: $speed, bearing: $bearing"
+
             locationResult ?: return
+            Log.d("bananaumai", "lastLocation: ${locationResult.lastLocation.fmt()}")
+            Log.d("bananaumai", "num locations: ${locationResult.locations.count()}")
             for (location in locationResult.locations) {
-                Log.d("bananaumai", "$location")
+                Log.d("bananaumai", "   location: ${location.fmt()}")
             }
         }
     }
 
 
+
     private fun createLocationRequest(): LocationRequest {
         val locationRequest = LocationRequest.create() ?: throw RuntimeException("couldn't create locatilon request")
 
-        locationRequest.interval = 5000
-        locationRequest.fastestInterval = 1000
+        locationRequest.interval = 20000
+        locationRequest.fastestInterval = 10000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         return locationRequest
